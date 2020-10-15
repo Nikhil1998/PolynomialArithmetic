@@ -14,7 +14,10 @@ void print_poly(vpi v)
     sort(v.begin(), v.end(), greater<pair<int, int> >());
 
     if(v.size() == 0)
+    {
+        cout << 0 << endl;
         return;
+    }
 
     for(int i = 0; i < v.size() - 1; i++)
     {
@@ -188,6 +191,8 @@ void div_poly(vpi dd, vpi ds, vpi &q, vpi &r, int p)
     r: remainder
     dd = q * ds + r
     */
+    cout << "\nDividing "; print_poly(dd);
+    cout << "By "; print_poly(ds);
 
     sort(dd.begin(), dd.end(), greater<pair<int, int> >());
     sort(ds.begin(), ds.end(), greater<pair<int, int> >());
@@ -198,7 +203,7 @@ void div_poly(vpi dd, vpi ds, vpi &q, vpi &r, int p)
     while(true)
     {
         if(cur[0].ff < ds[0].ff)
-            return;
+            break;
 
         int ddiff = cur[0].ff - ds[0].ff;    // degree difference
         int coeff = cur[0].ss;               // coefficient
@@ -213,15 +218,22 @@ void div_poly(vpi dd, vpi ds, vpi &q, vpi &r, int p)
         cur = sub_poly(cur, sub, p);
 
         sort(cur.begin(), cur.end(), greater<pair<int, int> >());
+        cout << "New dividend: "; print_poly(cur);
 
         r = cur;
         if(r.size() == 0)
-            return;
+            break;
     }
+
+    cout << "Quotient "; print_poly(q);
+    cout << "Remainder "; print_poly(r);
+    cout << endl;
 }
 
 vpi extendedGCD(vpi a, vpi b, vpi &s, vpi &t, int p) 
 {
+    cout << "\n--------Euclid's Extended GCD-------\n";
+
     vpi rprev = a, r = b;
     vpi sprev, tprev;
     
@@ -232,19 +244,15 @@ vpi extendedGCD(vpi a, vpi b, vpi &s, vpi &t, int p)
 
     vpi qtemp, rtemp;
 
-    int i = 0;
-
     while(r.size() != 0) 
     {
-        i++;
-        if(i == 5)
-            break;
-
-    //    cout << "Dividing "; print_poly(rprev); cout << " by "; print_poly(r);
+        cout << "\nDividing "; print_poly(rprev); 
+        cout << "By "; print_poly(r);
         qtemp.clear();
         rtemp.clear();
+        cout << "Polynomial A: "; print_poly(rprev);
+        cout << "Polynomial B: "; print_poly(r);
         div_poly(rprev, r, qtemp, rtemp, p);
-    //    cout << "Quotient "; print_poly(qtemp); cout << "Remainder "; print_poly(rtemp);
 
         vpi q = qtemp;
         
@@ -252,21 +260,21 @@ vpi extendedGCD(vpi a, vpi b, vpi &s, vpi &t, int p)
         temp = rprev;
         rprev = r;
         r = sub_poly(temp, mul_poly(q, rprev, p), p);
-    //    cout << "r becomes "; print_poly(r);
+        cout << "r becomes "; print_poly(r);
         
         // si = s(i - 2) - q * s(i - 1)
-    //    cout << "s was "; print_poly(s);
+        cout << "s was "; print_poly(s);
         temp = sprev;
         sprev = s;
         s = sub_poly(temp, mul_poly(q, sprev, p), p);
-    //    cout << "s becomes "; print_poly(s);
+        cout << "s becomes "; print_poly(s);
         
         // ti = t(i - 2) - q * t(i - 1)
-    //    cout << "t was "; print_poly(t);
+        cout << "t was "; print_poly(t);
         temp = tprev;
         tprev = t;
         t = sub_poly(temp, mul_poly(q, tprev, p), p);
-    //    cout << "t becomes "; print_poly(t);
+        cout << "t becomes "; print_poly(t);
     }
     s = sprev;
     t = tprev;
