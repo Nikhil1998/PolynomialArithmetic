@@ -1,0 +1,21 @@
+Galois Field(2^4)
+
+p: 2
+n: 4
+
+Polynomial A: x^2 + 1
+2		// 2 terms in f(x)
+0 1		// degree, coeff
+2 1		// ..
+
+Polynomial B: x^3 + x + 1
+3       // 2 terms in f(x)
+0 1     // degree, coeff
+1 1     // ..
+3 1     // ..
+
+Polynomial modulo: x^4 + x^3 + 1
+3		// 3 terms in f(x)
+0 1		// degree, coeff
+3 1		// ..
+4 1
